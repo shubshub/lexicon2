@@ -14,7 +14,5 @@
             bool Run();
 
             string GetName();
-        
-
     };
 #endif

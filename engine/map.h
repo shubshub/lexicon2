@@ -4,30 +4,20 @@
     #include <iostream>
     #include <vector>
     #include <map>
-    #include "./room.h"
+    #include "room.h"
     using namespace std;
 
     class Map {
         public: 
-            Map(string _name) {
-                name = _name;
-            };
+            Map(string _name);
 
-            bool AddRoom(Room *room) {
-                rooms[room->GetName()] = room;
+            bool AddRoom(Room *room);
 
-                return true;
-            }
+            Room* GetRoom(Position position);
 
-            Room* GetRoom(string _name) {
-                Room* _thisRoom;
-                auto it = rooms.find(_name);
-                if (it != rooms.end()) {
-                    _thisRoom = it->second;
-                }
+            Room* GetRoom(int _x, int _y, int _z);
 
-                return _thisRoom;
-            }
+            Room* GetRoom(string _name);
         private:
             string name;
             map<string, Room*> rooms;

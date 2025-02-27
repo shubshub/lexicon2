@@ -9,7 +9,7 @@ Entity::Entity(string _name)  {
 
 bool Entity::Run()  {
     cout << "\n";
-    cout << "Hello my name is " << name << " ";
+    cout << "Hello my name is " << name << "\n ";
     return true;
 }
 

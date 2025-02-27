@@ -2,23 +2,16 @@
 #define ROOM_H
     #include <string>
     #include <map>
-    #include "./entity.h"
-    #include "./worldposition.h"
+    #include "entity.h"
+    #include "position.h"
     using namespace std;
 
     class Room {
         public:
-            Room() {
-                name = "";
-                position = WorldPosition();
-            }
+            Room();
             
-            Room(string _name, int _x, int _y, int _z) {
-                
-                name = _name;
-                position = WorldPosition(_x, _y, _z);
-
-            }
+            Room(string _name, int _x, int _y, int _z) ;
+            Room(string _name, Position _position);
 
             string GetName();
 
@@ -26,15 +19,12 @@
 
             Entity* GetEntity(string _name);
 
-            WorldPosition GetPosition();
+            Position GetPosition();
 
             
         private:
             string name;
-            WorldPosition position;
+            Position position;
             map<string, Entity*> entities;
-            int x;
-            int y;
-            int z;
     };
 #endif

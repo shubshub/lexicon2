@@ -5,6 +5,25 @@
 #include <string>
 using namespace std;
 
+Room::Room(string _name, int _x, int _y, int _z) {
+                
+    name = _name;
+    position = Position(_x, _y, _z);
+
+}
+
+Room::Room(string _name, Position _position) {
+                
+    name = _name;
+    position = _position;
+
+}
+
+Room::Room() {
+    name = "";
+    position = Position();
+}
+
 string Room::GetName() {
     return name;
 }
@@ -20,10 +39,11 @@ Entity* Room::GetEntity(string _name) {
     auto it = entities.find(_name);
     if (it != entities.end()) {
         _thisEntity = it->second;
-        return _thisEntity;
     }
+
+    return _thisEntity;
 }
 
-WorldPosition Room::GetPosition() {
+Position Room::GetPosition() {
     return position;
 }
