@@ -12,9 +12,9 @@ struct VerbPrepositionCombo;
 class Lexicon2;
 
 struct VerbEntityPrepCombo {
-    Verb* verb;
-    Entity* entity; 
-    Preposition* preposition;
+    Verb* verb = nullptr;
+    Entity* entity = nullptr; 
+    Preposition* preposition = nullptr;
 };
 
 class Parseley3 {

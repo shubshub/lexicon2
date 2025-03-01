@@ -43,9 +43,22 @@ void Parseley3::GrabVerbEntities(std::string _sentence, map<std::string, Entity*
 
     for (int i = 0; i < _verbEntityCombos.size(); i++) {
         VerbEntityPrepCombo _vpc = _verbEntityCombos[i];
+
         Verb* _verb = _vpc.verb;
+        if (!_verb) {
+            continue;
+        }
+
         Preposition* _prep = _vpc.preposition;
+        if (!_prep) {
+            continue;
+        }
+
         VerbPrepositionCombo* validAction = _vpc.entity->GetAction(_verb, _prep);
+        if (!validAction) {
+            continue;
+        }
+        
         validAction->preposition->function(_vpc.entity, engine);
         std::cout << std::endl;
         validAction->function(engine);

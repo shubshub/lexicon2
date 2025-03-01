@@ -40,20 +40,24 @@ std::vector<VerbPrepositionCombo*> Entity::GetActions() {
 }
 
 VerbPrepositionCombo* Entity::GetAction(Verb* _verb, Preposition* _prep) {
-    VerbPrepositionCombo* _vpc;
-    for (int i = 0; i < actions.size(); i++) {
-        if (actions[i]->verb->GetWord() == _verb->GetWord()
-        && actions[i]->preposition->prep == _prep->prep) {
-            _vpc = actions[i];
-            break;
+    if (!_verb || !_prep) {
+        return nullptr;
+    }
+
+    for (VerbPrepositionCombo* action : actions) {
+        const bool wordMatch = action->verb->GetWord() == _verb->GetWord();
+        const bool prepMath = action->preposition->prep == _prep->prep;
+
+        if (wordMatch && prepMath) {
+            return action;
         }
     }
 
-    return _vpc;
+    return nullptr;
 }
-
+//std::function<void(Entity* Lexicon2*)> function;
 Entity* Entity::CreateAction(Verb* _verb, Preposition* _prep, void(*_function)(Lexicon2* engine)) {
-    VerbPrepositionCombo* _vpc;
+    VerbPrepositionCombo* _vpc = new VerbPrepositionCombo();
     _vpc->verb = _verb;
     _vpc->preposition = _prep;
     _vpc->function = _function;

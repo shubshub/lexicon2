@@ -36,8 +36,10 @@ int main()
     _parseley.AddVerb(&_take);
     Lexicon2 _gameInstance = Lexicon2(&_parseley);
     Entity _chairEntity = Entity("chair", "Chair");
-    _chairEntity.CreateAction(&_walk, &_prep, &sitChair);
-    _chairEntity.CreateAction(&_walk, &_stand, &standChair);
+    auto sitChairAction = _chairEntity.CreateAction(&_walk, &_prep, &sitChair);
+    auto standchairAction = _chairEntity.CreateAction(&_walk, &_stand, &standChair);
+
+
     Room _myRoom = Room("testroom", 0, 0, 0);
     Floor _myFloor = Floor("myMap");
 

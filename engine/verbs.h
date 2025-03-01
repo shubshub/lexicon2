@@ -2,13 +2,14 @@
 #define VERBS_H
 #include <iostream>
 #include <map>
+#include <functional>
 
 class Entity;
 class Lexicon2;
 
 struct Preposition {
     std::string prep;
-    void(*function)(Entity* entity, Lexicon2* engine);
+    std::function<void(Entity*, Lexicon2*)> function;
 };
 
 class Verb {
