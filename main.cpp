@@ -13,6 +13,10 @@ void sitChair(Lexicon2* engine) {
     std::cout << "You sit on the chair";
 }
 
+void standChair(Lexicon2* engine) {
+    std::cout << "You stand on the chair";
+}
+
 int main()
 {
     Parseley3 _parseley = Parseley3();
@@ -22,11 +26,18 @@ int main()
     _prep.prep = "to";
     _prep.function = walkPrep;
     _walk.AddPreposition(&_prep);
+    
+
+    Preposition _stand;
+    _stand.prep = "on";
+    _stand.function = walkPrep;
+    _walk.AddPreposition(&_stand);
     _parseley.AddVerb(&_walk);
     _parseley.AddVerb(&_take);
     Lexicon2 _gameInstance = Lexicon2(&_parseley);
     Entity _chairEntity = Entity("chair", "Chair");
     _chairEntity.CreateAction(&_walk, &_prep, &sitChair);
+    _chairEntity.CreateAction(&_walk, &_stand, &standChair);
     Room _myRoom = Room("testroom", 0, 0, 0);
     Floor _myFloor = Floor("myMap");
 
