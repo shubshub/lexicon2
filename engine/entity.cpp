@@ -3,16 +3,21 @@
 #include <iostream>
 using namespace std;
 
-Entity::Entity(string _name)  {
+Entity::Entity(string _name, string _title)  {
     name = _name;
+    title = _title;
 }
 
-bool Entity::Run()  {
+bool Entity::DescribeEntity()  {
     cout << "\n";
-    cout << "Hello my name is " << name << "\n ";
+    cout << "I am a " << title << " sitting over by the " <<  "\n";
     return true;
 }
 
 string Entity::GetName() {
     return name;
+}
+
+string Entity::GetTitle() {
+    return title;
 }

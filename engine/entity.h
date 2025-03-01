@@ -8,11 +8,13 @@
     class Entity {
         private:
             string name;
+            string title;
         public:
-            Entity(string _name);
+            Entity(string _name, string _title);
 
-            bool Run();
+            bool DescribeEntity();
 
             string GetName();
+            string GetTitle();
     };
 #endif

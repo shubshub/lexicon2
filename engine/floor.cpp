@@ -1,16 +1,16 @@
-#include "map.h"
+#include "floor.h"
 
-Map::Map(string _name) {
+Floor::Floor(string _name) {
     name = _name;
 };
 
-bool Map::AddRoom(Room *room)  {
+bool Floor::AddRoom(Room *room)  {
     rooms[room->GetName()] = room;
 
     return true;
 }
 
-Room* Map::GetRoom(Position position) {
+Room* Floor::GetRoom(Position position) {
     Room *_thisRoom;
     for (const auto& pair : rooms) {
         Position pos = pair.second->GetPosition();
@@ -22,7 +22,7 @@ Room* Map::GetRoom(Position position) {
     return _thisRoom;
 }
 
-Room* Map::GetRoom(int _x, int _y, int _z) {
+Room* Floor::GetRoom(int _x, int _y, int _z) {
     Room *_thisRoom;
     for (const auto& pair : rooms) {
         Position pos = pair.second->GetPosition();
@@ -34,7 +34,21 @@ Room* Map::GetRoom(int _x, int _y, int _z) {
     return _thisRoom;
 }
 
-Room* Map::GetRoom(string _name) {
+void Floor::DescribeCurrentRoom(int _x, int _y, int _z) {
+    Room* _thisRoom = GetRoom(_x, _y, _z);
+    _thisRoom->DescribeRoom();
+}
+
+std::string Floor::GetName() {
+    return name;
+}
+
+void Floor::DescribeCurrentRoom(Position _position) {
+    Room* _thisRoom = GetRoom(_position);
+    _thisRoom->DescribeRoom();
+}
+
+Room* Floor::GetRoom(string _name) {
     Room* _thisRoom;
     auto it = rooms.find(_name);
     if (it != rooms.end()) {

@@ -1,28 +1,26 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "engine/engine.h"
 #include "engine/entity.h"
 #include "engine/room.h"
-#include "engine/map.h"
+#include "engine/floor.h"
+#include "engine/verbs.h"
 
 using namespace std;
 
 int main()
 {
-    Entity _myentity = Entity("Joey Bombano");
-    Room _myRoom = Room("testroom", 0, 0, 1);
-    cout << _myRoom.GetName();
-    Map _myMap = Map("myMap");
+    Lexicon2 _gameInstance = Lexicon2();
+    Entity _myentity = Entity("chair", "Chair");
+    Room _myRoom = Room("testroom", 0, 0, 0);
+    Floor _myFloor = Floor("myMap");
 
-    _myMap.AddRoom(&_myRoom);
+    _myFloor.AddRoom(&_myRoom);
     _myRoom.AddEntity(&_myentity);
-
-    Room* _foundRoom = _myMap.GetRoom(Position(0, 0, 1));
-    Entity* _foundEntity = _foundRoom->GetEntity("Joey Bombano");
-
-    cout << "\nTesting Found Entity Reference\n";
-
-    _foundEntity->Run();
+    _gameInstance.AddFloor(&_myFloor);
+    _gameInstance.Run();
+    
 
     return 0;
 }

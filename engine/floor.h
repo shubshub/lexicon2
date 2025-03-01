@@ -7,9 +7,9 @@
     #include "room.h"
     using namespace std;
 
-    class Map {
+    class Floor {
         public: 
-            Map(string _name);
+        Floor(string _name);
 
             bool AddRoom(Room *room);
 
@@ -18,6 +18,12 @@
             Room* GetRoom(int _x, int _y, int _z);
 
             Room* GetRoom(string _name);
+
+            std::string GetName();
+
+            void DescribeCurrentRoom(int _x, int _y, int _z);
+            void DescribeCurrentRoom(Position _position);
+
         private:
             string name;
             map<string, Room*> rooms;
