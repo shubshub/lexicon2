@@ -2,9 +2,11 @@
 #define ROOM_H
     #include <string>
     #include <map>
-    #include "entity.h"
-    #include "position.h"
-    #include "location.h"
+
+    class Position;
+    class Entity;
+    class Location;
+
     using namespace std;
 
     class Room {
@@ -12,7 +14,7 @@
             Room();
             
             Room(string _name, int _x, int _y, int _z) ;
-            Room(string _name, Position _position);
+            Room(string _name, Position* _position);
 
             string GetName();
 
@@ -24,12 +26,12 @@
             map<string, Entity*> GetEntities();
             map<string, Location*> GetLocations();
             
-            Position GetPosition();
+            Position* GetPosition();
 
             
         private:
             string name;
-            Position position;
+            Position* position;
             map<string, Entity*> entities;
             map<string, Location*> locations;
     };

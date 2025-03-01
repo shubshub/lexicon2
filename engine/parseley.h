@@ -3,8 +3,13 @@
 #include <string>
 #include <map>
 #include <limits>
-#include "verbs.h"
-#include "entity.h"
+#include <sstream>
+
+class Verb;
+class Entity;
+struct Preposition;
+struct VerbPrepositionCombo;
+class Lexicon2;
 
 struct VerbEntityPrepCombo {
     Verb* verb;
@@ -16,7 +21,7 @@ class Parseley3 {
     public: 
         Parseley3() {}
         
-        void GrabVerbEntities(std::string _sentence, map<std::string, Entity*> _entities) {
+        void GrabVerbEntities(std::string _sentence, map<std::string, Entity*> _entities, Lexicon2* engine) {
             char anykey;
             map<std::string, Verb*> _verbs = GetVerbs();
             
@@ -54,8 +59,8 @@ class Parseley3 {
                 Verb* _verb = _vpc.verb;
                 Preposition* _prep = _vpc.preposition;
                 VerbPrepositionCombo* validAction = _vpc.entity->GetAction(_verb, _prep);
-                validAction->preposition->function(_vpc.entity);
-                validAction->function();
+                validAction->preposition->function(_vpc.entity, engine);
+                validAction->function(engine);
             }
 
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discards until a newline

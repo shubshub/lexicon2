@@ -1,5 +1,7 @@
 #include "room.h"
-
+#include "position.h"
+#include "location.h"
+#include "entity.h"
 #include <iostream>
 #include <map>
 #include <string>
@@ -8,11 +10,12 @@ using namespace std;
 Room::Room(string _name, int _x, int _y, int _z) {
                 
     name = _name;
-    position = Position(_x, _y, _z);
+    Position _pos = Position(_x, _y, _z);
+    position = &_pos;
 
 }
 
-Room::Room(string _name, Position _position) {
+Room::Room(string _name, Position* _position) {
                 
     name = _name;
     position = _position;
@@ -21,7 +24,8 @@ Room::Room(string _name, Position _position) {
 
 Room::Room() {
     name = "";
-    position = Position();
+    Position _pos = Position();
+    position = &_pos;
 }
 
 string Room::GetName() {
@@ -81,6 +85,6 @@ Entity* Room::GetEntity(string _name) {
     return _thisEntity;
 }
 
-Position Room::GetPosition() {
+Position* Room::GetPosition() {
     return position;
 }

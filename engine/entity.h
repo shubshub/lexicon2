@@ -4,17 +4,16 @@
     #include <iostream>
     #include <map>
     #include <vector>
-
     using namespace std;
 
     class Verb;
     struct Preposition;
-    #include "verbs.h"
+    class Lexicon2;
 
     struct VerbPrepositionCombo {
         Verb* verb;
         Preposition* preposition;
-        void(*function)();
+        void(*function)(Lexicon2* engine);
     };
 
     class Entity {
@@ -22,6 +21,7 @@
             string name;
             string title;
             std::vector<VerbPrepositionCombo*> actions;
+            map<std::string, bool> flags;
         public:
             Entity();
             Entity(string _name, string _title);
@@ -30,9 +30,13 @@
 
             string GetName();
             string GetTitle();
-            Entity* CreateAction(Verb* _verb, Preposition* preposition, void(*_function)());
+            
             std::vector<VerbPrepositionCombo*> GetActions();
             VerbPrepositionCombo* GetAction(Verb* _verb, Preposition* _prep);
+            bool GetFlag(std::string _flag);
+
+            Entity* CreateAction(Verb* _verb, Preposition* preposition, void(*_function)(Lexicon2* engine));
+            Entity* SetFlag(std::string _flag, bool _value);
 
     };
 #endif

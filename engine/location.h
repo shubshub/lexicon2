@@ -1,8 +1,11 @@
+#ifndef LOCATION_H
+#define LOCATION_H
 #include <string>
-#include "entity.h"
 #include <map>
 
 using namespace std;
+
+class Entity;
 
 class Location {
     public: 
@@ -18,3 +21,4 @@ class Location {
         string title;
         map<string, Entity*> entities;
 };
+#endif

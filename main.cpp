@@ -2,19 +2,14 @@
 #include <vector>
 #include <string>
 #include "engine/engine.h"
-#include "engine/entity.h"
-#include "engine/room.h"
-#include "engine/floor.h"
-#include "engine/verbs.h"
-#include "engine/parseley.h"
 
 using namespace std;
 
-void walkPrep(std::map<std::string, Entity*> entities) {
+void walkPrep(Entity* _entity, Lexicon2* engine) {
     std::cout << "You walk";
 }
 
-void sitChair() {
+void sitChair(Lexicon2* engine) {
     std::cout << "You sit on the chair";
 }
 

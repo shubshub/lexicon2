@@ -1,4 +1,6 @@
 #include "entity.h"
+#include "engine.h"
+#include "verbs.h"
 #include <string>
 #include <iostream>
 
@@ -20,6 +22,19 @@ bool Entity::DescribeEntity()  {
     return true;
 }
 
+bool Entity::GetFlag(std::string _flag) {
+    if (flags.count(_flag)) {
+        return flags.find(_flag)->second;
+    }
+
+    return false;
+}
+
+Entity* Entity::SetFlag(std::string _flag, bool _value) {
+    flags[_flag] = _value;
+    return this;
+}
+
 std::vector<VerbPrepositionCombo*> Entity::GetActions() {
     return actions;
 }
@@ -37,7 +52,7 @@ VerbPrepositionCombo* Entity::GetAction(Verb* _verb, Preposition* _prep) {
     return _vpc;
 }
 
-Entity* Entity::CreateAction(Verb* _verb, Preposition* _prep, void(*_function)()) {
+Entity* Entity::CreateAction(Verb* _verb, Preposition* _prep, void(*_function)(Lexicon2* engine)) {
     VerbPrepositionCombo* _vpc;
     _vpc->verb = _verb;
     _vpc->preposition = _prep;

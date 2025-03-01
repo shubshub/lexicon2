@@ -1,4 +1,5 @@
 #include "location.h"
+#include "entity.h"
 
 Location::Location() {
     name = "Deck";

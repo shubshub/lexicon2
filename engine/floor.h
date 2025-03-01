@@ -4,8 +4,11 @@
     #include <iostream>
     #include <vector>
     #include <map>
-    #include "room.h"
+
     using namespace std;
+    
+    class Room;
+    class Position;
 
     class Floor {
         public: 

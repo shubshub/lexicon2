@@ -1,4 +1,6 @@
 #include "floor.h"
+#include "room.h"
+#include "position.h"
 
 Floor::Floor(string _name) {
     name = _name;
@@ -13,8 +15,8 @@ bool Floor::AddRoom(Room *room)  {
 Room* Floor::GetRoom(Position position) {
     Room *_thisRoom;
     for (const auto& pair : rooms) {
-        Position pos = pair.second->GetPosition();
-        if (pos == position) {
+        Position* pos = pair.second->GetPosition();
+        if (*pos == position) {
             _thisRoom = pair.second;
         }
     }
@@ -25,8 +27,8 @@ Room* Floor::GetRoom(Position position) {
 Room* Floor::GetRoom(int _x, int _y, int _z) {
     Room *_thisRoom;
     for (const auto& pair : rooms) {
-        Position pos = pair.second->GetPosition();
-        if (pos == Position(_x, _y, _z)) {
+        Position* pos = pair.second->GetPosition();
+        if (*pos == Position(_x, _y, _z)) {
             _thisRoom = pair.second;
         }
     }
