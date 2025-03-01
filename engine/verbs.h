@@ -2,10 +2,14 @@
 #define VERBS_H
 #include <iostream>
 #include <map>
+
+
+class Entity;
 #include "entity.h"
+
 struct Preposition {
     std::string prep;
-    void(*function)(std::map<std::string, Entity*> entities);
+    void(*function)(Entity* entity);
 };
 
 class Verb {
@@ -18,24 +22,29 @@ class Verb {
             return word;
         }
         
-        bool AddPreposition(std::string _prep, Preposition _preposition) {
-            prepositions[_prep] = _preposition;
+        bool AddPreposition(Preposition* _preposition) {
+            prepositions[_preposition->prep] = _preposition;
+            return true;
         }
 
-        void ExecutePreposition(std::string _prep, std::map<std::string, Entity*> _entities) {
+        std::map<std::string, Preposition*> GetPrepositions() {
+            return prepositions;
+        }
+
+        void ExecutePreposition(std::string _prep, Entity* _entity {
             Preposition _preposition;
             
             auto it = prepositions.find(_prep);
 
             if (it != prepositions.end()) {
-                _preposition = it->second;
-                _preposition.function(_entities);
+                _preposition = *it->second;
+                _preposition.function(_entity);
             }
         }
 
     private:
         std::string word;
-        std::map<std::string, Preposition> prepositions;
+        std::map<std::string, Preposition*> prepositions;
 
 };
 
