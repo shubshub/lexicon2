@@ -9,6 +9,7 @@
     
     class Room;
     class Position;
+    class Lexicon2;
 
     class Floor {
         public: 
@@ -24,8 +25,8 @@
 
             std::string GetName();
 
-            void DescribeCurrentRoom(int _x, int _y, int _z);
-            void DescribeCurrentRoom(Position _position);
+            void DescribeCurrentRoom(int _x, int _y, int _z, Lexicon2* engine);
+            void DescribeCurrentRoom(Position _position, Lexicon2* engine);
 
         private:
             string name;

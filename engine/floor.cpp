@@ -36,18 +36,18 @@ Room* Floor::GetRoom(int _x, int _y, int _z) {
     return _thisRoom;
 }
 
-void Floor::DescribeCurrentRoom(int _x, int _y, int _z) {
+void Floor::DescribeCurrentRoom(int _x, int _y, int _z, Lexicon2* engine) {
     Room* _thisRoom = GetRoom(_x, _y, _z);
-    _thisRoom->DescribeRoom();
+    _thisRoom->DescribeRoom(engine);
 }
 
 std::string Floor::GetName() {
     return name;
 }
 
-void Floor::DescribeCurrentRoom(Position _position) {
+void Floor::DescribeCurrentRoom(Position _position, Lexicon2* engine) {
     Room* _thisRoom = GetRoom(_position);
-    _thisRoom->DescribeRoom();
+    _thisRoom->DescribeRoom(engine);
 }
 
 Room* Floor::GetRoom(string _name) {

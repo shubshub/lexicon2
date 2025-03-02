@@ -34,7 +34,7 @@ void Lexicon2::Run() {
         Floor* _currentFloor = GetFloor(currentFloor);
         Room* _currentRoom = _currentFloor->GetRoom(*currentPosition);
         map<std::string, Entity*> _entities = _currentRoom->GetEntities();
-        _currentFloor->DescribeCurrentRoom(*currentPosition);
+        _currentFloor->DescribeCurrentRoom(*currentPosition, this);
 
         std::cout << "What would you like to do?\n";
 

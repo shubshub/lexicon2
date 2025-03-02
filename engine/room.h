@@ -6,7 +6,7 @@
     class Position;
     class Entity;
     class Location;
-
+    class Lexicon2;
     using namespace std;
 
     class Room {
@@ -20,18 +20,21 @@
 
             bool AddEntity(Entity* entity);
             bool AddLocation(Location* location);
-            bool DescribeRoom();
+            bool SetDescription(void(*_description)(map<string, Entity*> _entities, map<string, Location*> _locations, Lexicon2* engine));
+            bool DescribeRoom(Lexicon2* engine);
 
             Entity* GetEntity(string _name);
             map<string, Entity*> GetEntities();
             map<string, Location*> GetLocations();
             
             Position* GetPosition();
-
+            void defaultDescription(map<string, Entity*> _entities, map<string, Location*> _locations, Lexicon2* engine);
             
         private:
+            
             string name;
             Position* position;
+            void(*description)(map<string, Entity*> _entities, map<string, Location*> _locations, Lexicon2* engine) = nullptr;
             map<string, Entity*> entities;
             map<string, Location*> locations;
     };

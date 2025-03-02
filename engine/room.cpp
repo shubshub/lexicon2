@@ -40,15 +40,30 @@ map<string, Location*> Room::GetLocations() {
     return locations;
 }
 
-bool Room::DescribeRoom() {
-    map<string, Entity*> _entities = GetEntities();
+bool Room::SetDescription(void(*_description)(map<string, Entity*> _entities, map<string, Location*> _locations, Lexicon2* engine)) {
+    description = _description;
+
+    return true;
+}
+
+bool Room::DescribeRoom(Lexicon2* engine) {
+    map<std::string, Entity*> _ents = GetEntities();
+    map<std::string, Location*> _locs = GetLocations();
+    if (!description) {
+        defaultDescription(_ents, _locs, engine);
+    } else {
+        description(_ents, _locs, engine);
+    }
+
+    return true;
+}
+
+void Room::defaultDescription(map<string, Entity*> _entities, map<string, Location*> _locations, Lexicon2* engine) {
     cout << "Welcome to the " << GetName() << " room\n";
     cout << "On the floor of the room you see before you\n";
     for (const auto& _entity : _entities) {
         cout << _entity.second->GetTitle() << "\n";
-    }
-
-    map<string, Location*> _locations = GetLocations();
+    };
 
     for (const auto& _location : _locations) {
         Location* _loc = _location.second;
@@ -59,8 +74,6 @@ bool Room::DescribeRoom() {
             cout << _entity.second->GetTitle() << "\n";
         }
     }
-
-    return true;
 }
 
 bool Room::AddEntity(Entity* entity) {

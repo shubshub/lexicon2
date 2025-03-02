@@ -50,18 +50,29 @@ void Parseley3::GrabVerbEntities(std::string _sentence, map<std::string, Entity*
         }
 
         Preposition* _prep = _vpc.preposition;
-        if (!_prep) {
+        /*if (!_prep) {
             continue;
-        }
+        }*/
 
         VerbPrepositionCombo* validAction = _vpc.entity->GetAction(_verb, _prep);
+
         if (!validAction) {
-            continue;
+            map<std::string, Preposition*> _preps = _verb->GetPrepositions();
+            Preposition* _prep = _preps.begin()->second;
+            _prep->function(_vpc.entity, engine);
+        } else if (!validAction->preposition) {
+            map<std::string, Preposition*> _preps = validAction->verb->GetPrepositions();
+            Preposition* _prep = _preps.begin()->second;
+            _prep->function(_vpc.entity, engine);
+        }
+        else if (!validAction->function) {
+            validAction->preposition->function(_vpc.entity, engine);
+        } else {
+            validAction->function(engine);
         }
         
-        validAction->preposition->function(_vpc.entity, engine);
         std::cout << std::endl;
-        validAction->function(engine);
+        
     }
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discards until a newline
