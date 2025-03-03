@@ -18,6 +18,38 @@ Parseley3 _parseley = Parseley3();
 Once you have included the engine, We need to create some essentials for the Game Engine to Run correctly
 We will create a Parseley3 instance which holds everything related to taking in User Input and translating it to actions in the game
 
+Next we want to create our first Game Instance
+```
+Lexicon2 _gameInstance = Lexicon2(&_parseley);
+```
+
+We create an Object for _gameInstance of type Lexicon2 and pass a reference to our Parseley3 Object
+
+Now we will create a Floor a Room and an Entity and add it to our Game Instance
+```
+Entity _chairEntity = Entity("chair", "Chair");
+Entity _tableEntity = Entity("table", "Table");
+
+Room _myRoom = Room("testroom", 0, 0, 0);
+
+Floor _myFloor = Floor("firstfloor");
+
+_myFloor.AddRoom(&_myRoom);
+_myRoom.AddEntity(&_chairEntity);
+_myRoom.AddEntity(&_tableEntity);
+_gameInstance.AddFloor(&_myFloor);
+```
+
+Here we are creating 2 Entities one for a Chair the other for a Table
+Then we are creating a Room, The position of this room is x:0,y:0,z0;
+This determines the location on the Floor that room is
+
+Once we have everything we can
+1. Add the Room to the Floor
+2. Add Entities to the Room
+3. Add the Floor to the Game Engine
+
+Now we need to create some Verbs and Actions to let us interact with the game
 ```
 Verb _verb = Verb("walk");
 ```
@@ -49,10 +81,31 @@ void besidePrep(Entity* _entity, Lexicon2* engine) {
     std::cout << "You walk beside the " << _entity->GetName();
 }
 
-Preposition _beside;
+Preposition _beside;void sitChair(Lexicon2* engine) {
+    std::cout << "You sit on the chair";
+}
 _beside.prep = "beside";
 _beside.function = besidePrep;
 _verb.AddPreposition(&_beside);
 ```
 
 Now if we were to type "walk beside the table" It will execute that Method instead of the one we setup for the "to" Preposition
+
+Currently these methods will be executed against any entity.
+What if we want to add a piece of functionality that only executes for that specific entity?,
+This is extremely simple to do we just grab our entity and call Create Action, With a Verb a Preposition and another Method
+
+```
+void sitChair(Lexicon2* engine) {
+    std::cout << "You sit on the chair";
+}
+
+_chairEntity.CreateAction(&_walk, &_to, &sitChair);
+```
+
+Once you've added everything to the Game Instance you can just call
+```
+_gameInstance.Run()
+```
+
+To see it all in action
